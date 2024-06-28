@@ -1,12 +1,13 @@
 <template>
-  <v-app-bar
-    color="info"
-    title="바코드 생성앱 및 제품 정보
-"
-  ></v-app-bar>
+  <v-app-bar color="info" :title="props.titleName"></v-app-bar>
 </template>
 
-<script setup></script>
+<script setup>
+const props = defineProps({
+  titleName: {},
+});
+console.log(props.titleName);
+</script>
 
 <style scoped>
 .sky-blue {
