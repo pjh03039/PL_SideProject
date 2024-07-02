@@ -1,5 +1,5 @@
 <template>
-  <v-app class="rounded rounded-md">
+  <v-app class="rounded-md">
     <title-form :titleName="titleName"></title-form>
     <main-page></main-page>
   </v-app>
