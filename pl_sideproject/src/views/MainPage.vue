@@ -1,26 +1,10 @@
 <template>
   <v-main>
-    <v-container>
-      <v-row style="justify-content: center">
-        <vue-qrcode
-          :value="barcodeValue"
-          :width="200"
-          type="image/png"
-          :color="colorObject"
-        />
-      </v-row>
-      <v-row>
-        <BarcodeInputForm @barcodeData="getBarcodeData"></BarcodeInputForm>
-      </v-row>
+    <barcode-input-form @barcodeData="getBarcodeData"></barcode-input-form>
 
-      <v-row>
-        <BarcodeForm :barcodeValue="barcodeValue"></BarcodeForm>
-      </v-row>
+    <barcode-form :barcodeValue="barcodeValue"></barcode-form>
 
-      <v-row>
-        <ProductInfoForm></ProductInfoForm>
-      </v-row>
-    </v-container>
+    <product-info-form></product-info-form>
   </v-main>
 </template>
 
