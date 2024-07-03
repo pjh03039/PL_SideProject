@@ -7,7 +7,10 @@
 
 <script setup>
 const props = defineProps({
-  barcodeValue: String,
+  barcodeValue: {
+    type: String,
+    required: false,
+  },
 });
 </script>
 

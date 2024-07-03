@@ -4,7 +4,10 @@
 
 <script setup>
 const props = defineProps({
-  titleName: {},
+  titleName: {
+    type: String,
+    required: false,
+  },
 });
 console.log(props.titleName);
 </script>
