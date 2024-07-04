@@ -6,9 +6,12 @@
           <v-row>
             <v-col>
               <v-text-field
+                prepend-inner-icon="mdi-pencil"
                 label="바코드 입력"
                 v-model="barcodeValue"
                 :rules="[rules.required]"
+                hide-details="auto"
+                clearable
               ></v-text-field>
             </v-col>
           </v-row>
