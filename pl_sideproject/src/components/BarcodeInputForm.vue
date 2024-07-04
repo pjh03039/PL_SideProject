@@ -4,16 +4,12 @@
       <v-col>
         <v-form @submit.prevent="submitForm" ref="form">
           <v-row>
-            <v-col cols="10">
+            <v-col>
               <v-text-field
                 label="바코드 입력"
                 v-model="barcodeValue"
                 :rules="[rules.required]"
               ></v-text-field>
-            </v-col>
-            <v-col cols="2" class="flex-grow-3">
-              <v-btn class="mx-auto" type="submit" color="primary">생성</v-btn>
-              <v-btn color="error" @click="removeBarcode">지우기</v-btn>
             </v-col>
           </v-row>
         </v-form>
