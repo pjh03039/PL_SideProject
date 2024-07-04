@@ -14,20 +14,18 @@
 <script setup>
 import VueQrcode from 'vue-qrcode';
 import html2canvas from 'html2canvas';
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useStore } from 'vuex';
 const store = useStore();
-const props = defineProps({
-  barcodeValue: {
-    type: String,
-    required: false,
-  },
+
+const barcodeValue = computed(() => {
+  return store.state.barcodeValue;
 });
 
-// const colorObject = ref({
-//   dark: '#000000ff',
-//   light: '#ffffffff',
-// });
+const colorObject = ref({
+  dark: '#000000ff',
+  light: '#ffffffff',
+});
 
 const qrcodeRef = ref(null); // ref 객체 생성
 
