@@ -12,6 +12,7 @@
                 :rules="[rules.required]"
                 hide-details="auto"
                 clearable
+                counter
               ></v-text-field>
             </v-col>
           </v-row>
