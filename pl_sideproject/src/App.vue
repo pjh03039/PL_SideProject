@@ -1,7 +1,9 @@
 <template>
   <v-app>
-    <title-form :titleName="titleName"></title-form>
-    <main-page></main-page>
+    <v-container class="fill-height d-flex justify-center align-center">
+      <title-form :titleName="titleName"></title-form>
+      <main-page></main-page>
+    </v-container>
   </v-app>
 </template>
 
