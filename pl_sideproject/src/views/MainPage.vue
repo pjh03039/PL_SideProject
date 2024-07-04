@@ -2,10 +2,14 @@
   <v-main>
     <v-container>
       <barcode-input-form @barcodeData="getBarcodeData"></barcode-input-form>
-
-      <barcode-form :barcodeValue="barcodeValue"></barcode-form>
-
-      <product-info-form></product-info-form>
+      <v-row>
+        <v-col>
+          <barcode-form :barcodeValue="barcodeValue"></barcode-form>
+        </v-col>
+        <v-col>
+          <product-info-form></product-info-form>
+        </v-col>
+      </v-row>
     </v-container>
   </v-main>
 </template>

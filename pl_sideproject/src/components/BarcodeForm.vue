@@ -1,10 +1,10 @@
 <template>
   <v-container>
-    <div>BarcodeForm 컴포넌트</div>
-    <div>입력 바코드 >> {{ props.barcodeValue }}</div>
+    <!-- <div>BarcodeForm 컴포넌트</div> -->
+    <!-- <div>입력 바코드 >> {{ props.barcodeValue }}</div> -->
     <vue-qrcode
       :value="barcodeValue"
-      :width="200"
+      :width="150"
       type="image/png"
       :color="colorObject"
     />
