@@ -15,6 +15,14 @@
         </v-form>
       </v-col>
     </v-row>
+    <v-bottom-navigation :color="color" grow class="full-width-bottom-nav">
+      <v-btn block>
+        <span>바코드 생성</span>
+      </v-btn>
+      <v-btn block>
+        <span>바코드 삭제</span>
+      </v-btn>
+    </v-bottom-navigation>
   </v-container>
 </template>
 
