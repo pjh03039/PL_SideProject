@@ -4,14 +4,16 @@
       <title-form :titleName="titleName"></title-form>
       <main-page></main-page>
     </v-container>
+    <snack-bar-form></snack-bar-form>
   </v-app>
 </template>
 
 <script set>
 import TitleForm from './components/TitleForm.vue';
+import SnackBarForm from './components/SnackBarForm.vue';
 import MainPage from './views/MainPage.vue';
 export default {
-  components: { TitleForm, MainPage },
+  components: { TitleForm, MainPage, SnackBarForm },
   name: 'App',
 
   data: () => ({
