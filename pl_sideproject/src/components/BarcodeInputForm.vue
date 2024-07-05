@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-form @keyup="submitForm" ref="form">
+    <v-form ref="form">
       <v-row>
         <v-col>
           <v-row>
@@ -13,6 +13,8 @@
                 hide-details="auto"
                 clearable
                 counter
+                @keyup="savaStore"
+                @keyup.enter="submitForm"
               ></v-text-field>
             </v-col>
           </v-row>
@@ -23,22 +25,23 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 import { useStore } from 'vuex';
 
 const barcodeValue = ref('');
 const store = useStore();
-const valueTest = computed(() => {
-  return store.state.barcodeValue;
-});
 
 const rules = {
   required: value => !!value || '필수 입력 항목입니다.',
 };
 
 function submitForm() {
-  store.dispatch('updateBarcodeValue', barcodeValue.value);
-  console.log(barcodeValue.value);
+  store.dispatch('BARCODEFLAG', true);
+}
+
+function savaStore() {
+  store.dispatch('UPDATEBARCODE', barcodeValue.value);
+  store.dispatch('BARCODEFLAG', false);
 }
 </script>
 

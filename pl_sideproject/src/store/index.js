@@ -8,6 +8,7 @@ export default createStore({
       timeout: 2000,
     },
     barcodeValue: '',
+    evnetFlag: false,
     overlayFlg: false,
   },
   getters: {
@@ -18,19 +19,25 @@ export default createStore({
     SETSNACKBAR(state, snackbarObj) {
       state.toastObj = snackbarObj;
     },
-    setBarcodeValue(state, newBarcode) {
+    SETBARCODE(state, newBarcode) {
       state.barcodeValue = newBarcode;
     },
     setOverlayFlg(state, overlayFlg) {
       state.overlayFlg = overlayFlg;
+    },
+    SETFLAG(state, evnetFlag) {
+      state.evnetFlag = evnetFlag;
     },
   },
   actions: {
     OPENSNACKBAR({ commit }, snackbarObj) {
       commit('SETSNACKBAR', snackbarObj);
     },
-    updateBarcodeValue({ commit }, newBarcode) {
-      commit('setBarcodeValue', newBarcode);
+    UPDATEBARCODE({ commit }, newBarcode) {
+      commit('SETBARCODE', newBarcode);
+    },
+    FLAG({ commit }, evnetFlag) {
+      commit('SETFLAG', evnetFlag);
     },
   },
   modules: {},

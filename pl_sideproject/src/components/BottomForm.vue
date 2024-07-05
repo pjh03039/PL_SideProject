@@ -1,6 +1,6 @@
 <template>
   <v-bottom-navigation grow>
-    <v-btn @click="generateBarcode">
+    <v-btn @click="createQRcode">
       <span>바코드 생성</span>
     </v-btn>
     <v-btn @click="copyQRCode">
@@ -66,6 +66,10 @@ watch(sheet, newValue => {
     createBottomSheet();
   }
 });
+
+function createQRcode() {
+  store.dispatch('FLAG', true);
+}
 
 async function copyQRCode() {
   store.commit('setOverlayFlg', true);
