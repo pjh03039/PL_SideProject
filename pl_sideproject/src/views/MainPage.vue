@@ -2,7 +2,7 @@
   <v-main>
     <v-container>
       <barcode-input-form @barcodeData="getBarcodeData"></barcode-input-form>
-      <v-row>
+      <v-row id="qrcodeRef">
         <v-col>
           <barcode-form :barcodeValue="barcodeValue"></barcode-form>
         </v-col>

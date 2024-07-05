@@ -4,8 +4,12 @@
       Open Snackbar
     </v-btn> -->
 
-    <v-snackbar v-model="snackbar" :timeout="timeout">
-      {{ text }}
+    <v-snackbar
+      style="z-index: 3000 !important"
+      v-model="toastObj.snackbar"
+      :timeout="toastObj.timeout"
+    >
+      {{ toastObj.text }}
 
       <template v-slot:actions>
         <v-btn color="blue" variant="text" @click="closeSnackbar">
@@ -21,9 +25,6 @@ import { computed, ref } from 'vue';
 import { useStore } from 'vuex';
 const store = useStore();
 const toastObj = computed(() => store.getters.toastObj);
-const snackbar = computed(() => toastObj.value.snackbar);
-const text = computed(() => toastObj.value.text);
-const timeout = computed(() => toastObj.value.timeout);
 const closeSnackbar = () => {
   store.dispatch('OPENSNACKBAR', {
     snackbar: false,
