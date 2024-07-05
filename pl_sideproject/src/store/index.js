@@ -25,7 +25,7 @@ export default createStore({
     setOverlayFlg(state, overlayFlg) {
       state.overlayFlg = overlayFlg;
     },
-    SETFLAG(state, evnetFlag) {
+    BARCODEFLAG(state, evnetFlag) {
       state.evnetFlag = evnetFlag;
     },
   },
@@ -36,8 +36,8 @@ export default createStore({
     UPDATEBARCODE({ commit }, newBarcode) {
       commit('SETBARCODE', newBarcode);
     },
-    FLAG({ commit }, evnetFlag) {
-      commit('SETFLAG', evnetFlag);
+    BARCODEFLAG({ commit }, evnetFlag) {
+      commit('BARCODEFLAG', evnetFlag);
     },
   },
   modules: {},

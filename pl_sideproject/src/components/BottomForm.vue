@@ -68,7 +68,7 @@ watch(sheet, newValue => {
 });
 
 function createQRcode() {
-  store.dispatch('FLAG', true);
+  store.dispatch('BARCODEFLAG', true);
 }
 
 async function copyQRCode() {
