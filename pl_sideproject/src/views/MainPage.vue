@@ -2,7 +2,7 @@
   <v-main>
     <v-container>
       <barcode-input-form></barcode-input-form>
-      <v-row id="qrcodeRef">
+      <v-row id="qrcodeRef" v-if="evnetFlag">
         <v-col>
           <barcode-form></barcode-form>
         </v-col>
@@ -20,6 +20,13 @@ import BarcodeInputForm from '@/components/BarcodeInputForm.vue';
 import BarcodeForm from '@/components/BarcodeForm.vue';
 import ProductInfoForm from '@/components/ProductInfoForm.vue';
 import BottomForm from '@/components/BottomForm.vue';
+import { useStore } from 'vuex';
+import { computed } from 'vue';
+
+const store = useStore();
+const evnetFlag = computed(() => {
+  return store.getters.barcodeFlag;
+});
 </script>
 
 <style></style>

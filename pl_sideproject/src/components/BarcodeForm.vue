@@ -1,5 +1,5 @@
 <template>
-  <v-container ref="qrcodeRef" style="text-align: center" v-if="evnetFlag">
+  <v-container ref="qrcodeRef" style="text-align: center">
     <!-- <div>BarcodeForm 컴포넌트</div> -->
     <vue-qrcode
       :value="barcodeValue"
@@ -25,10 +25,7 @@ const colorObject = ref({
   light: '#ffffffff',
 });
 const barcodeValue = computed(() => {
-  return store.state.barcodeValue;
-});
-const evnetFlag = computed(() => {
-  return store.state.evnetFlag;
+  return store.state.saveBarcodeValue;
 });
 
 const qrcodeRef = ref(null); // ref 객체 생성

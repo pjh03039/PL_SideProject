@@ -36,12 +36,11 @@ const rules = {
 };
 
 function submitForm() {
-  store.dispatch('BARCODEFLAG', true);
+  store.commit('SAVEBARCODE', barcodeValue.value);
 }
 
 function savaStore() {
   store.dispatch('UPDATEBARCODE', barcodeValue.value);
-  store.dispatch('BARCODEFLAG', false);
 }
 </script>
 
