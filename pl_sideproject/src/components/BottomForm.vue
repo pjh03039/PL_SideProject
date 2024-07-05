@@ -9,9 +9,11 @@
   </v-bottom-navigation>
   <div class="text-center">
     <v-bottom-sheet v-model="sheet">
-      <v-card class="text-center" height="400">
-        <v-card-text>
-          <v-btn variant="text" @click="sheet = !sheet"> close </v-btn>
+      <v-card height="500">
+        <div class="px-3 py-3 text-end" @click="sheet = !sheet">
+          <v-icon icon="mdi-close" size="x-large"></v-icon>
+        </div>
+        <v-card-text class="text-center">
           <div id="canvas-container"></div>
         </v-card-text>
       </v-card>
@@ -52,6 +54,7 @@ watch(sheet, newValue => {
 });
 
 async function copyQRCode() {
+  store.commit('setOverlayFlg', true);
   const qrElement = document.getElementById('qrcodeRef'); // vue-qrcode 컴포넌트의 실제 DOM 요소에 접근
   // 이미지 요소의 src 속성에서 데이터 URL 가져오기
   canvas = await html2canvas(qrElement); // 요소를 캡처하여 캔버스로 변환
@@ -62,6 +65,7 @@ async function copyQRCode() {
       const item = new ClipboardItem({ 'image/png': blob });
       await navigator.clipboard.write([item]);
       console.log('요소 이미지가 클립보드에 복사되었습니다.');
+      store.commit('setOverlayFlg', false);
       store.dispatch('OPENSNACKBAR', {
         snackbar: true,
         text: 'QR 코드가 복사되었습니다.',

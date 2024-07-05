@@ -3,7 +3,7 @@
     <!-- <div>BarcodeForm 컴포넌트</div> -->
     <vue-qrcode
       :value="barcodeValue"
-      :width="120"
+      :width="150"
       type="image/png"
       :color="colorObject"
     />

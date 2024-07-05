@@ -5,15 +5,17 @@
       <main-page></main-page>
     </v-container>
     <snack-bar-form></snack-bar-form>
+    <progress-circular-form></progress-circular-form>
   </v-app>
 </template>
 
 <script set>
 import TitleForm from './components/TitleForm.vue';
 import SnackBarForm from './components/SnackBarForm.vue';
+import ProgressCircularForm from './components/ProgressCircularForm.vue';
 import MainPage from './views/MainPage.vue';
 export default {
-  components: { TitleForm, MainPage, SnackBarForm },
+  components: { TitleForm, MainPage, SnackBarForm, ProgressCircularForm },
   name: 'App',
 
   data: () => ({

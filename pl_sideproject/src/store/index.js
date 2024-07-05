@@ -8,6 +8,7 @@ export default createStore({
       timeout: 2000,
     },
     barcodeValue: '',
+    overlayFlg: false,
   },
   getters: {
     toastObj: state => state.toastObj,
@@ -19,6 +20,9 @@ export default createStore({
     },
     setBarcodeValue(state, newBarcode) {
       state.barcodeValue = newBarcode;
+    },
+    setOverlayFlg(state, overlayFlg) {
+      state.overlayFlg = overlayFlg;
     },
   },
   actions: {
