@@ -3,7 +3,7 @@
     <v-btn @click="createQRcode">
       <span>바코드 생성</span>
     </v-btn>
-    <v-btn @click="copyQRCode" v-if="getSaveBarcodeValue">
+    <v-btn @click="copyQRCode(copyHtmlElment)" v-if="getSaveBarcodeValue">
       <span>바코드 복사</span>
     </v-btn>
   </v-bottom-navigation>
@@ -37,10 +37,15 @@
 </template>
 
 <script setup>
-import { computed, onBeforeUnmount, ref, watch } from 'vue';
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { useStore } from 'vuex';
 import { createBottomQRcode } from '@/hooks/composableQRBottomCreate.js';
-const { copyQRCode, sheet, bottomSheetPer, bottomSheetCnt } =
+
+// const copyHtmlElmen = document.getElementById('qrcodeRef'); // QR 바코드 복사
+// const appendHtmlElment = document.getElementById('canvas-container'); // QR 바코드 붙혀넣기
+const copyHtmlElment = ref();
+const appendHtmlElment = ref();
+let { copyQRCode, sheet, bottomSheetPer, bottomSheetCnt, createBottomSheet } =
   createBottomQRcode();
 const store = useStore();
 let getSaveBarcodeValue = computed(() => {
@@ -50,6 +55,19 @@ let getSaveBarcodeValue = computed(() => {
 function createQRcode() {
   store.commit('SAVEBARCODE', store.getters.getBarcodeValue);
 }
+onMounted(() => {
+  copyHtmlElment.value = document.getElementById('qrcodeRef');
+  console.log('mount');
+});
+
+watch(sheet, newValue => {
+  if (newValue) {
+    setTimeout(() => {
+      const appendHtmlElment = document.getElementById('canvas-container');
+      createBottomSheet(appendHtmlElment, 10);
+    }, 100);
+  }
+});
 </script>
 
 <style></style>

@@ -2,7 +2,7 @@
   <v-main>
     <v-container>
       <barcode-input-form></barcode-input-form>
-      <v-row id="qrcodeRef" v-if="saveBarcodeValue">
+      <v-row id="qrcodeRef" v-show="saveBarcodeValue">
         <v-col>
           <barcode-form></barcode-form>
         </v-col>
@@ -11,6 +11,7 @@
         </v-col>
       </v-row>
       <bottom-form></bottom-form>
+      <div id="mhlee"></div>
     </v-container>
   </v-main>
 </template>

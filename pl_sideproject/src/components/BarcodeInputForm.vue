@@ -6,6 +6,7 @@
           <v-row>
             <v-col>
               <v-text-field
+                id="inputmhlee"
                 prepend-inner-icon="mdi-pencil"
                 label="바코드 입력"
                 v-model="barcodeValue"
