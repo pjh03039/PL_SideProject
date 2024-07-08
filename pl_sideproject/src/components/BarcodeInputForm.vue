@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-form ref="form">
+    <v-form ref="form" @submit.prevent="submitForm">
       <v-row>
         <v-col>
           <v-row>
@@ -15,6 +15,7 @@
                 counter
                 @keyup="savaStore"
                 @keyup.enter="submitForm"
+                @click:clear="clearBarcode"
               ></v-text-field>
             </v-col>
           </v-row>
@@ -40,6 +41,11 @@ function submitForm() {
 }
 
 function savaStore() {
+  store.dispatch('UPDATEBARCODE', barcodeValue.value);
+}
+
+function clearBarcode() {
+  store.dispatch('UPDATEBARCODE', '');
   store.dispatch('UPDATEBARCODE', barcodeValue.value);
 }
 </script>

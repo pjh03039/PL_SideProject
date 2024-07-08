@@ -15,6 +15,7 @@ export default createStore({
   getters: {
     toastObj: state => state.toastObj,
     getBarcodeValue: state => state.barcodeValue,
+    getSaveBarcodeValue: state => state.saveBarcodeValue,
     barcodeFlag: state => {
       console.log(state.saveBarcodeValue !== '');
       return state.saveBarcodeValue !== '';

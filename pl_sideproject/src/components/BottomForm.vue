@@ -3,7 +3,7 @@
     <v-btn @click="createQRcode">
       <span>바코드 생성</span>
     </v-btn>
-    <v-btn @click="copyQRCode">
+    <v-btn @click="copyQRCode" v-if="getSaveBarcodeValue">
       <span>바코드 복사</span>
     </v-btn>
   </v-bottom-navigation>
@@ -103,9 +103,9 @@ let bottomSheetCnt = ref(5);
 let bottomSheetPer = computed(() => {
   return (bottomSheetCnt.value / bottomSheetMaxPer) * 100;
 });
-const barcodeValue = store.getters.getBarcodeValue;
+const getSaveBarcodeValue = store.getters.getSaveBarcodeValue;
 const generateBarcode = () => {
-  console.log('바코드 :', barcodeValue);
+  console.log('바코드 :', getSaveBarcodeValue);
 };
 
 // 인터벌 ID를 저장할 변수

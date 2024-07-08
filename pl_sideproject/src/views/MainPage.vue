@@ -2,7 +2,7 @@
   <v-main>
     <v-container>
       <barcode-input-form></barcode-input-form>
-      <v-row id="qrcodeRef" v-if="evnetFlag">
+      <v-row id="qrcodeRef" v-if="evnetFlag || barcodeValue">
         <v-col>
           <barcode-form></barcode-form>
         </v-col>
@@ -26,6 +26,9 @@ import { computed } from 'vue';
 const store = useStore();
 const evnetFlag = computed(() => {
   return store.getters.barcodeFlag;
+});
+const barcodeValue = computed(() => {
+  return store.getters.barcodeValue;
 });
 </script>
 
