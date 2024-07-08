@@ -25,7 +25,7 @@ const colorObject = ref({
   light: '#ffffffff',
 });
 const barcodeValue = computed(() => {
-  return store.state.saveBarcodeValue;
+  return store.getters.getSaveBarcodeValue;
 });
 
 const qrcodeRef = ref(null); // ref 객체 생성

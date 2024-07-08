@@ -9,17 +9,12 @@ export default createStore({
     },
     barcodeValue: '',
     saveBarcodeValue: '',
-    evnetFlag: false,
     overlayFlg: false,
   },
   getters: {
     toastObj: state => state.toastObj,
     getBarcodeValue: state => state.barcodeValue,
     getSaveBarcodeValue: state => state.saveBarcodeValue,
-    barcodeFlag: state => {
-      console.log(state.saveBarcodeValue !== '');
-      return state.saveBarcodeValue !== '';
-    },
   },
   mutations: {
     SETSNACKBAR(state, snackbarObj) {
@@ -34,9 +29,6 @@ export default createStore({
     setOverlayFlg(state, overlayFlg) {
       state.overlayFlg = overlayFlg;
     },
-    SETBARCODEFLAG(state, evnetFlag) {
-      state.evnetFlag = evnetFlag;
-    },
   },
   actions: {
     OPENSNACKBAR({ commit }, snackbarObj) {
@@ -44,9 +36,6 @@ export default createStore({
     },
     UPDATEBARCODE({ commit }, newBarcode) {
       commit('SETBARCODE', newBarcode);
-    },
-    BARCODEFLAG({ commit }, evnetFlag) {
-      commit('SETBARCODEFLAG', evnetFlag);
     },
   },
   modules: {},

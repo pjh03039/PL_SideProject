@@ -46,7 +46,6 @@ function savaStore() {
 
 function clearBarcode() {
   store.dispatch('UPDATEBARCODE', '');
-  store.dispatch('UPDATEBARCODE', barcodeValue.value);
 }
 </script>
 
