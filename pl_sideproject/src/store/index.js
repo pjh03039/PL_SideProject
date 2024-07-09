@@ -10,11 +10,17 @@ export default createStore({
     barcodeValue: '',
     saveBarcodeValue: '',
     overlayFlg: false,
+    bottomSheetObj: {
+      sheetShow: false,
+      height: 500,
+      timer: 5,
+    },
   },
   getters: {
     toastObj: state => state.toastObj,
     getBarcodeValue: state => state.barcodeValue,
     getSaveBarcodeValue: state => state.saveBarcodeValue,
+    getBottomSheetObj: state => state.bottomSheetObj,
   },
   mutations: {
     SETSNACKBAR(state, snackbarObj) {
@@ -26,8 +32,11 @@ export default createStore({
     SAVEBARCODE(state, savedBarcod) {
       state.saveBarcodeValue = savedBarcod;
     },
-    setOverlayFlg(state, overlayFlg) {
+    setDim(state, overlayFlg) {
       state.overlayFlg = overlayFlg;
+    },
+    SETVBOTTOMSHEET(state, bottomSheetObj) {
+      state.bottomSheetObj = bottomSheetObj;
     },
   },
   actions: {

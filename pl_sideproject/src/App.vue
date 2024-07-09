@@ -15,7 +15,12 @@ import SnackBarForm from './components/SnackBarForm.vue';
 import ProgressCircularForm from './components/ProgressCircularForm.vue';
 import MainPage from './views/MainPage.vue';
 export default {
-  components: { TitleForm, MainPage, SnackBarForm, ProgressCircularForm },
+  components: {
+    TitleForm,
+    MainPage,
+    SnackBarForm,
+    ProgressCircularForm,
+  },
   name: 'App',
 
   data: () => ({
