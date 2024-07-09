@@ -46,7 +46,7 @@ async function copyAndPasteQRCode() {
   });
   store.commit('SETVBOTTOMSHEET', {
     sheetShow: true,
-    height: 500,
+    height: 600,
     timer: 5,
   });
   await nextTick();
