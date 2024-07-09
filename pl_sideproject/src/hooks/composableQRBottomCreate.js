@@ -8,7 +8,6 @@ export function createBottomQRcode(appendElementId, createBottomQRcode) {
   let canvas;
 
   async function copyQRCode() {
-    store.commit('setOverlayFlg', true);
     console.log(`qrcodeRef ${appendElementId}`);
     const qrElement = document.getElementById(appendElementId); // vue-qrcode 컴포넌트의 실제 DOM 요소에 접근
     // 이미지 요소의 src 속성에서 데이터 URL 가져오기
@@ -16,18 +15,14 @@ export function createBottomQRcode(appendElementId, createBottomQRcode) {
     try {
       // div 요소 선택
       const canvas = await html2canvas(qrElement); // 요소를 캡처하여 캔버스로 변환
-      canvas.toBlob(async function (blob) {
-        const item = new ClipboardItem({ 'image/png': blob });
-        await navigator.clipboard.write([item]);
-        console.log('요소 이미지가 클립보드에 복사되었습니다.');
-        store.commit('setOverlayFlg', false);
-        // bottomSheetShow = true;
-        store.dispatch('OPENSNACKBAR', {
-          snackbar: true,
-          text: 'QR 코드가 복사되었습니다.',
-          timeout: 2000,
-        });
-      }, 'image/png');
+      return new Promise(resolve => {
+        canvas.toBlob(async function (blob) {
+          const item = new ClipboardItem({ 'image/png': blob });
+          await navigator.clipboard.write([item]);
+          console.log('요소 이미지가 클립보드에 복사되었습니다.');
+          resolve(true);
+        }, 'image/png');
+      });
     } catch (error) {
       console.error('요소 이미지 복사 중 오류 발생:', error);
     }

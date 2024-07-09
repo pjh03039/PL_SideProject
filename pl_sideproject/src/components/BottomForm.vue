@@ -3,15 +3,7 @@
     <v-btn @click="createQRcode">
       <span>바코드 생성</span>
     </v-btn>
-    <v-btn
-      @click="
-        () => {
-          copyQRCode();
-          bottomSheetShow = true;
-        }
-      "
-      v-if="getSaveBarcodeValue"
-    >
+    <v-btn @click="copyAndPasteQRCode" v-if="getSaveBarcodeValue">
       <span>바코드 복사</span>
     </v-btn>
   </v-bottom-navigation>
@@ -45,7 +37,14 @@
 </template>
 
 <script setup>
-import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
+import {
+  computed,
+  nextTick,
+  onBeforeUnmount,
+  onMounted,
+  ref,
+  watch,
+} from 'vue';
 import { useStore } from 'vuex';
 
 const store = useStore();
@@ -74,15 +73,25 @@ let {
 
 // 바텀 생성
 
-watch(bottomSheetShow, newValue => {
+async function copyAndPasteQRCode() {
+  store.commit('setOverlayFlg', true);
+  await copyQRCode();
+  store.dispatch('OPENSNACKBAR', {
+    snackbar: true,
+    text: 'QR 코드가 복사되었습니다.',
+    timeout: 2000,
+  });
+  bottomSheetShow.value = true;
+}
+
+watch(bottomSheetShow, async newValue => {
   if (newValue) {
-    // bottom 시트 생성 타이머
-    setTimeout(() => {
-      pasteQRCode(); // QR 붙혀넣기
-      createBottomTimer(5, function () {
-        bottomSheetShow.value = false;
-      }); // 바텀 타이머
-    }, 450);
+    await nextTick();
+    pasteQRCode(); // QR 붙혀넣기
+    store.commit('setOverlayFlg', false);
+    createBottomTimer(5, function () {
+      bottomSheetShow.value = false;
+    }); // 바텀 타이머
   }
 });
 
