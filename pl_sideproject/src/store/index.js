@@ -7,6 +7,13 @@ export default createStore({
       text: 'QR 코드가 복사되었습니다.',
       timeout: 2000,
     },
+    productInfo: {
+      productBarcode: '',
+      makrModelCode: '',
+      modelCode: '',
+      productName: '',
+      wifiType: '',
+    },
     barcodeValue: '',
     saveBarcodeValue: '',
     overlayFlg: false,
@@ -21,6 +28,7 @@ export default createStore({
     getBarcodeValue: state => state.barcodeValue,
     getSaveBarcodeValue: state => state.saveBarcodeValue,
     getBottomSheetObj: state => state.bottomSheetObj,
+    getProductInfo: state => state.productInfo,
   },
   mutations: {
     SETSNACKBAR(state, snackbarObj) {
@@ -35,6 +43,9 @@ export default createStore({
     setDim(state, overlayFlg) {
       state.overlayFlg = overlayFlg;
     },
+    SETPRODUCT(state, newProduct) {
+      state.productInfo = newProduct;
+    },
     SETVBOTTOMSHEET(state, bottomSheetObj) {
       state.bottomSheetObj = bottomSheetObj;
     },
@@ -45,6 +56,9 @@ export default createStore({
     },
     UPDATEBARCODE({ commit }, newBarcode) {
       commit('SETBARCODE', newBarcode);
+    },
+    UPDATEPRODUCT({ commit }, newProduct) {
+      commit('SETPRODUCT', newProduct);
     },
   },
   modules: {},
