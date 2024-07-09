@@ -3,14 +3,22 @@
     <v-btn @click="createQRcode">
       <span>바코드 생성</span>
     </v-btn>
-    <v-btn @click="copyQRCode(copyHtmlElment)" v-if="getSaveBarcodeValue">
+    <v-btn
+      @click="
+        () => {
+          copyQRCode();
+          bottomSheetShow = true;
+        }
+      "
+      v-if="getSaveBarcodeValue"
+    >
       <span>바코드 복사</span>
     </v-btn>
   </v-bottom-navigation>
   <div class="text-center">
-    <v-bottom-sheet v-model="sheet">
+    <v-bottom-sheet v-model="bottomSheetShow">
       <v-card height="500">
-        <div class="px-3 py-3 text-end" @click="sheet = !sheet">
+        <div class="px-3 py-3 text-end" @click="clearInterval">
           <!-- <v-btn
             :icon="`mdi-numeric-${bottomSheetCnt}`"
             height="40"
@@ -39,14 +47,7 @@
 <script setup>
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { useStore } from 'vuex';
-import { createBottomQRcode } from '@/hooks/composableQRBottomCreate.js';
 
-// const copyHtmlElmen = document.getElementById('qrcodeRef'); // QR 바코드 복사
-// const appendHtmlElment = document.getElementById('canvas-container'); // QR 바코드 붙혀넣기
-const copyHtmlElment = ref();
-const appendHtmlElment = ref();
-let { copyQRCode, sheet, bottomSheetPer, bottomSheetCnt, createBottomSheet } =
-  createBottomQRcode();
 const store = useStore();
 let getSaveBarcodeValue = computed(() => {
   return store.getters.getSaveBarcodeValue;
@@ -55,19 +56,40 @@ let getSaveBarcodeValue = computed(() => {
 function createQRcode() {
   store.commit('SAVEBARCODE', store.getters.getBarcodeValue);
 }
-onMounted(() => {
-  copyHtmlElment.value = document.getElementById('qrcodeRef');
-  console.log('mount');
-});
 
-watch(sheet, newValue => {
+// 바코드 복사
+import { createBottomQRcode } from '@/hooks/composableQRBottomCreate.js';
+const copyId = 'qrcodeRef'; //QR복사 id
+const pasteId = 'canvas-container'; //QR붙혀넣기 id
+const bottomSheetShow = ref(false);
+const elTest = ref(document.getElementById(pasteId));
+let {
+  copyQRCode,
+  pasteQRCode,
+  bottomSheetPer,
+  bottomSheetCnt,
+  createBottomTimer,
+  stopInterval,
+} = createBottomQRcode(copyId, pasteId);
+
+// 바텀 생성
+
+watch(bottomSheetShow, newValue => {
   if (newValue) {
+    // bottom 시트 생성 타이머
     setTimeout(() => {
-      const appendHtmlElment = document.getElementById('canvas-container');
-      createBottomSheet(appendHtmlElment, 10);
-    }, 100);
+      pasteQRCode(); // QR 붙혀넣기
+      createBottomTimer(5, function () {
+        bottomSheetShow.value = false;
+      }); // 바텀 타이머
+    }, 450);
   }
 });
+
+function clearInterval() {
+  bottomSheetShow.value = false;
+  stopInterval();
+}
 </script>
 
 <style></style>
