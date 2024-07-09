@@ -7,13 +7,13 @@
       <span>바코드 복사</span>
     </v-btn>
   </v-bottom-navigation>
-  <v-bottome-sheet>
+  <VBottomeSheet>
     <template v-slot:cardContent>
       <v-card-text class="text-center">
         <div id="canvas-container"></div>
       </v-card-text>
     </template>
-  </v-bottome-sheet>
+  </VBottomeSheet>
 </template>
 
 <script setup>

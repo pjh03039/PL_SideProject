@@ -13,7 +13,7 @@
             variant="text"
             width="40"
             border
-          ></v-btn> -->
+          ></v-btn> 버튼 형식 -->
           <v-progress-circular
             :model-value="bottomSheetPer"
             :rotate="200"
