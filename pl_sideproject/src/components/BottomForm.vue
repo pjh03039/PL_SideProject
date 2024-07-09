@@ -18,7 +18,7 @@
 
 <script setup>
 import { computed, nextTick } from 'vue';
-import VBottomeSheet from '@/components/VBottomeSheet.vue';
+import VBottomeSheet from '@/components/common/VBottomeSheet.vue';
 import { useStore } from 'vuex';
 
 const store = useStore();

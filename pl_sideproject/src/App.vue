@@ -10,9 +10,9 @@
 </template>
 
 <script set>
-import TitleForm from './components/TitleForm.vue';
-import SnackBarForm from './components/SnackBarForm.vue';
-import ProgressCircularForm from './components/ProgressCircularForm.vue';
+import TitleForm from './components/common/TitleForm.vue';
+import SnackBarForm from './components/common/SnackBarForm.vue';
+import ProgressCircularForm from './components/common/ProgressCircularForm.vue';
 import MainPage from './views/MainPage.vue';
 export default {
   components: {
