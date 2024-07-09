@@ -1,14 +1,11 @@
 import html2canvas from 'html2canvas';
-import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
-import { useStore } from 'vuex';
+import { computed, onBeforeUnmount, ref } from 'vue';
 
-export function createBottomQRcode(appendElementId, createBottomQRcode) {
-  const store = useStore();
-  // 바코드 복사
+export function createBottomQRcode() {
+  // QR
+  // QR copy
   let canvas;
-
-  async function copyQRCode() {
-    console.log(`qrcodeRef ${appendElementId}`);
+  async function copyQRCode(appendElementId) {
     const qrElement = document.getElementById(appendElementId); // vue-qrcode 컴포넌트의 실제 DOM 요소에 접근
     // 이미지 요소의 src 속성에서 데이터 URL 가져오기
     canvas = await html2canvas(qrElement); // 요소를 캡처하여 캔버스로 변환
@@ -19,7 +16,6 @@ export function createBottomQRcode(appendElementId, createBottomQRcode) {
         canvas.toBlob(async function (blob) {
           const item = new ClipboardItem({ 'image/png': blob });
           await navigator.clipboard.write([item]);
-          console.log('요소 이미지가 클립보드에 복사되었습니다.');
           resolve(true);
         }, 'image/png');
       });
@@ -28,23 +24,24 @@ export function createBottomQRcode(appendElementId, createBottomQRcode) {
     }
   }
 
-  // 바텀 시트
-
-  function pasteQRCode() {
+  // QR paste
+  function pasteQRCode(createBottomQRcode) {
     const appendHtmlElment = document.getElementById(createBottomQRcode);
     appendHtmlElment.appendChild(canvas);
   }
 
-  function createBottomTimer(bottomSetTime, callback) {
-    console.log(`createBottomQRcode ${createBottomQRcode}`);
-    startInterval(1000, bottomSetTime, callback);
-  }
-
+  // bottomSheet
   let bottomSheetMaxPer = 0;
   let bottomSheetCnt = ref(0);
   let bottomSheetPer = computed(() => {
     return (bottomSheetCnt.value / bottomSheetMaxPer) * 100;
   });
+
+  // bottomTimer
+  function createBottomTimer(bottomSetTime, callback) {
+    // console.log(`createBottomQRcode ${createBottomQRcode}`);
+    startInterval(1000, bottomSetTime, callback);
+  }
 
   // 인터벌 ID를 저장할 변수
   let intervalId = null;
@@ -60,28 +57,21 @@ export function createBottomQRcode(appendElementId, createBottomQRcode) {
     // 새로운 인터벌 설정
     intervalId = setInterval(() => {
       bottomSheetCnt.value--;
-      console.log(bottomSheetCnt.value);
       if (bottomSheetCnt.value <= 0) {
         callback();
         stopInterval();
-        // console.log(`bottomSheetShow end ${bottomSheetShow}`);
-        // bottomSheetShow = false;
-        // return Promise(resolve => {
-        //   resolve(true);
-        // });
       }
     }, interval);
   };
 
   // 인터벌을 중지하는 함수
   const stopInterval = () => {
-    console.log('stopInterval');
     if (intervalId) {
       clearInterval(intervalId);
       intervalId = null;
     }
   };
-
+  // 생명 주기 인터벌 중지
   onBeforeUnmount(() => {
     console.log('onBeforeUnmount');
     stopInterval();

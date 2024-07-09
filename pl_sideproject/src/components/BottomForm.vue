@@ -58,10 +58,7 @@ function createQRcode() {
 
 // 바코드 복사
 import { createBottomQRcode } from '@/hooks/composableQRBottomCreate.js';
-const copyId = 'qrcodeRef'; //QR복사 id
-const pasteId = 'canvas-container'; //QR붙혀넣기 id
 const bottomSheetShow = ref(false);
-const elTest = ref(document.getElementById(pasteId));
 let {
   copyQRCode,
   pasteQRCode,
@@ -69,13 +66,13 @@ let {
   bottomSheetCnt,
   createBottomTimer,
   stopInterval,
-} = createBottomQRcode(copyId, pasteId);
+} = createBottomQRcode();
 
-// 바텀 생성
-
+// QR copy && bottomShow
 async function copyAndPasteQRCode() {
   store.commit('setOverlayFlg', true);
-  await copyQRCode();
+  const copyId = 'qrcodeRef';
+  await copyQRCode(copyId);
   store.dispatch('OPENSNACKBAR', {
     snackbar: true,
     text: 'QR 코드가 복사되었습니다.',
@@ -84,14 +81,16 @@ async function copyAndPasteQRCode() {
   bottomSheetShow.value = true;
 }
 
+// QR paste && bottom hide timer
 watch(bottomSheetShow, async newValue => {
   if (newValue) {
     await nextTick();
-    pasteQRCode(); // QR 붙혀넣기
+    const pasteId = 'canvas-container';
+    pasteQRCode(pasteId); // QR 붙혀넣기
     store.commit('setOverlayFlg', false);
     createBottomTimer(5, function () {
       bottomSheetShow.value = false;
-    }); // 바텀 타이머
+    });
   }
 });
 
