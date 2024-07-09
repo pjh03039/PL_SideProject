@@ -17,10 +17,10 @@
 </template>
 
 <script setup>
-import BarcodeInputForm from '@/components/BarcodeInputForm.vue';
-import BarcodeForm from '@/components/BarcodeForm.vue';
-import ProductInfoForm from '@/components/ProductInfoForm.vue';
-import BottomForm from '@/components/BottomForm.vue';
+import BarcodeInputForm from '@/components/barcodePage/BarcodeInputForm.vue';
+import BarcodeForm from '@/components/barcodePage/BarcodeForm.vue';
+import ProductInfoForm from '@/components/barcodePage/ProductInfoForm.vue';
+import BottomForm from '@/components/barcodePage/BottomForm.vue';
 import { useStore } from 'vuex';
 import { computed } from 'vue';
 
