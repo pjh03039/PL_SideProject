@@ -23,6 +23,7 @@ export default createStore({
       timer: 5,
     },
     historyBarcodeArr: [],
+    QRcode: true,
   },
   getters: {
     toastObj: state => state.toastObj,
@@ -31,8 +32,12 @@ export default createStore({
     getBottomSheetObj: state => state.bottomSheetObj,
     getProductInfo: state => state.productInfo,
     getHistoryBarcodeArr: state => state.historyBarcodeArr,
+    isQRcode: state => state.QRcode,
   },
   mutations: {
+    SETQRCODETYPE(state, QRcode) {
+      state.QRcode = QRcode;
+    },
     SETSNACKBAR(state, snackbarObj) {
       state.toastObj = snackbarObj;
     },

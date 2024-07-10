@@ -1,5 +1,23 @@
 <template>
   <v-main>
+    <v-container class="d-flex justify-center align-center">
+      <v-btn
+        class="ma-1 d-flex align-center justify-center"
+        :color="isQRcode ? 'blue' : 'grey'"
+        size="large"
+        @click="QRcodeType(true)"
+      >
+        <v-icon size="large">{{ 'mdi-qrcode' }}</v-icon>
+      </v-btn>
+      <v-btn
+        class="ma-1 d-flex align-center justify-center"
+        :color="!isQRcode ? 'blue' : 'grey'"
+        size="large"
+        @click="QRcodeType(false)"
+      >
+        <v-icon size="x-large">{{ 'mdi-barcode' }}</v-icon>
+      </v-btn>
+    </v-container>
     <v-container>
       <barcode-input-form></barcode-input-form>
       <v-row id="qrcodeRef" v-show="saveBarcodeValue">
@@ -21,9 +39,17 @@ import BarcodeForm from '@/components/barcodePage/BarcodeForm.vue';
 import ProductInfoForm from '@/components/barcodePage/ProductInfoForm.vue';
 import BottomForm from '@/components/barcodePage/BottomForm.vue';
 import { useStore } from 'vuex';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 
 const store = useStore();
+// const isQRCODE = ref(true);
+const isQRcode = computed(() => store.getters.isQRcode);
+
+function QRcodeType(type) {
+  store.commit('SETQRCODETYPE', type);
+}
+
+// ('SETQRCODETYPE', isQRCODE);
 
 const saveBarcodeValue = computed(() => {
   return store.getters.getSaveBarcodeValue !== '';
