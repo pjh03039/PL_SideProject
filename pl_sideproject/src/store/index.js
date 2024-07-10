@@ -22,6 +22,7 @@ export default createStore({
       height: 500,
       timer: 5,
     },
+    historyBarcodeArr: [],
   },
   getters: {
     toastObj: state => state.toastObj,
@@ -29,6 +30,7 @@ export default createStore({
     getSaveBarcodeValue: state => state.saveBarcodeValue,
     getBottomSheetObj: state => state.bottomSheetObj,
     getProductInfo: state => state.productInfo,
+    getHistoryBarcodeArr: state => state.historyBarcodeArr,
   },
   mutations: {
     SETSNACKBAR(state, snackbarObj) {
@@ -49,6 +51,15 @@ export default createStore({
     SETVBOTTOMSHEET(state, bottomSheetObj) {
       state.bottomSheetObj = bottomSheetObj;
     },
+    SETHISTORY(state, searchBarcode) {
+      state.historyBarcodeArr.unshift(searchBarcode);
+      if (state.historyBarcodeArr.length > 10) {
+        state.historyBarcodeArr.pop();
+      }
+    },
+    CLEARHISTORY(state) {
+      state.historyBarcodeArr.splice(0, state.historyBarcodeArr.length);
+    },
   },
   actions: {
     OPENSNACKBAR({ commit }, snackbarObj) {
@@ -59,6 +70,9 @@ export default createStore({
     },
     UPDATEPRODUCT({ commit }, newProduct) {
       commit('SETPRODUCT', newProduct);
+    },
+    ADDHISTORY({ commit }, addBarcode) {
+      commit('SETHISTORY', addBarcode);
     },
   },
   modules: {},

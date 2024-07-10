@@ -27,7 +27,14 @@ let getSaveBarcodeValue = computed(() => {
 });
 
 function createQRcode() {
-  store.commit('SAVEBARCODE', store.getters.getBarcodeValue);
+  const barcodeValue = store.getters.getBarcodeValue;
+  const searchHistory = store.getters.getHistoryBarcodeArr;
+
+  store.commit('SAVEBARCODE', barcodeValue);
+
+  if (barcodeValue && !searchHistory.includes(barcodeValue)) {
+    store.dispatch('ADDHISTORY', barcodeValue);
+  }
 }
 
 // 바코드 복사
