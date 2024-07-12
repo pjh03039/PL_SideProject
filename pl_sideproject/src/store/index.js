@@ -45,7 +45,7 @@ export default createStore({
       state.barcodeValue = newBarcode.replace(/\s+/g, '');
     },
     SAVEBARCODE(state, savedBarcod) {
-      state.saveBarcodeValue = savedBarcod;
+      state.saveBarcodeValue = savedBarcod.replace(/\s+/g, '');
     },
     setDim(state, overlayFlg) {
       state.overlayFlg = overlayFlg;

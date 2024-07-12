@@ -9,7 +9,7 @@
                 id="inputmhlee"
                 prepend-inner-icon="mdi-pencil"
                 label="바코드 입력"
-                v-model="barcodeValue"
+                v-model.trim="barcodeValue"
                 :rules="[rules.required]"
                 required
                 hide-details="auto"
@@ -39,7 +39,6 @@ let { addHistory } = composableRecentSearchHistory();
 
 const barcodeValue = ref('');
 const store = useStore();
-const searchHistoryArr = store.getters.getSearchHistoryArr;
 
 const rules = {
   required: value => !!value || '필수 입력 항목입니다.',

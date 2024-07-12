@@ -9,6 +9,7 @@ export function composableRecentSearchHistory() {
 
   // 새로운 아이템 추가
   function addHistory(newItem) {
+    newItem = newItem.replace(/\s+/g, '');
     if (newItem && !searchHistoryArr.value.includes(newItem)) {
       store.dispatch('ADDHISTORY', newItem);
     }
