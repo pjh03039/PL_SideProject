@@ -1,15 +1,23 @@
 <template>
   <v-container>
     <v-row>
-      <v-col v-if="cowayProductCheck(getSaveBarcodeValue)"
-        >코웨이 제품입니다
-        <v-list>바코드 : {{ getProductInfo.productBarcode }}</v-list>
-        <v-list>자재코드 : {{ getProductInfo.makrModelCode }}</v-list>
-        <v-list>POP코드 : {{ getProductInfo.modelCode }}</v-list>
-        <v-list>제품 이름 : {{ getProductInfo.productName }}</v-list>
-        <v-list>wifiType : {{ getProductInfo.wifiType }}</v-list></v-col
-      >
-      <v-col v-else>{{ getSaveBarcodeValue }}</v-col>
+      <v-col v-if="cowayProductCheck(getSaveBarcodeValue)">
+        <v-list class="text-center"><strong>코웨이 제품입니다.</strong></v-list>
+        <v-list>바코드 : {{ getProductObj.productBarcode }}</v-list>
+        <v-list
+          >자재코드 : {{ getProductObj.productInfo.makrModelCode }}</v-list
+        >
+        <v-list>프로젝트명 : {{ getProductObj.productInfo.prodName }}</v-list>
+        <v-list>모델명 : {{ getProductObj.productInfo.productModel }}</v-list>
+        <v-list>제품 이름 : {{ getProductObj.productInfo.productName }}</v-list>
+        <v-list v-if="getProductObj.productInfo.wifiType !== 'X'"
+          >wifiType :
+          {{
+            getProductObj.productInfo.wifiType === 'M' ? 'MQTT' : 'TCP'
+          }}</v-list
+        >
+      </v-col>
+      <v-col v-else>바코드 : {{ getSaveBarcodeValue }}</v-col>
     </v-row>
   </v-container>
 </template>
@@ -26,20 +34,18 @@ const store = useStore();
 let getSaveBarcodeValue = computed(() => {
   return store.getters.getSaveBarcodeValue.toUpperCase();
 });
-let getProductInfo = computed(() => {
-  return store.getters.getProductInfo;
+let getProductObj = computed(() => {
+  return store.getters.getProductObj;
 });
 
 function cowayProductCheck(getSaveBarcodeValue) {
   let popCode = getSaveBarcodeValue.substring(3, 8);
   if (usefulBarcodeCheck(getSaveBarcodeValue) && popCodeCheck(popCode)) {
     let index = popCodeArr.findIndex(code => code === popCode);
+
     store.dispatch('UPDATEPRODUCT', {
       productBarcode: getSaveBarcodeValue,
-      makrModelCode: standDataDev.deviceInfos[index].makrModelCode,
-      modelCode: standDataDev.deviceInfos[index].modelCode,
-      productName: standDataDev.deviceInfos[index].productName,
-      wifiType: standDataDev.deviceInfos[index].wifiType,
+      productInfo: standDataDev.deviceInfos[index],
     });
     return true;
   }
@@ -58,16 +64,6 @@ function popCodeCheck(popCode) {
   } else {
     return false;
   }
-}
-
-function clearProductInfo() {
-  store.dispatch('UPDATEPRODUCT', {
-    productBarcode: '',
-    makrModelCode: '',
-    modelCode: '',
-    productName: '',
-    wifiType: '',
-  });
 }
 </script>
 
