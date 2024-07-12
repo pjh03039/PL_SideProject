@@ -35,14 +35,6 @@
               class="slider"
             ></v-slider>
           </v-list-item>
-          <v-text-field
-            v-model="sliderValue"
-            density="compact"
-            style="width: 70px"
-            type="number"
-            hide-details
-            single-line
-          ></v-text-field>
         </v-list>
       </template>
     </template>
@@ -72,6 +64,11 @@ function createQRcode() {
   if (barcodeValue && !searchHistoryArr.includes(barcodeValue)) {
     addHistory(barcodeValue);
   }
+
+  setTimeout(() => {
+    const scrollHeight = document.querySelector('.container').scrollHeight; // 스크롤할 컨테이너 선택
+    window.scrollTo({ top: scrollHeight, behavior: 'smooth' }); // 수직 스크롤을 문서의 높이로 이동
+  }, 10);
 }
 
 // 바코드 복사
@@ -86,6 +83,9 @@ async function copyAndPasteQRCode() {
   store.commit('setDim', true);
   const copyId = 'qrcodeRef';
   await copyQRCode(copyId);
+  const bottomSheetHeight =
+    document.getElementById('qrcodeRef').offsetHeight + 100;
+  console.log(bottomSheetHeight);
   store.dispatch('OPENSNACKBAR', {
     snackbar: true,
     text: 'QR 코드가 복사되었습니다.',
@@ -93,7 +93,7 @@ async function copyAndPasteQRCode() {
   });
   store.commit('SETVBOTTOMSHEET', {
     sheetShow: true,
-    height: 600,
+    height: bottomSheetHeight,
     timer: 5,
   });
   await nextTick();
@@ -105,10 +105,8 @@ async function copyAndPasteQRCode() {
 // 바코드 크기 조절
 
 const tiles = ref([{ icon: 'mdi-arrow-expand', title: 'Size' }]);
-
 const max = ref(300);
 const min = ref(30);
-
 let sliderValue = ref(store.getters.getbarcodeWidth);
 
 function resizeBarcode() {
@@ -124,7 +122,6 @@ function setSliderValue(value) {
   store.commit('SETBARCODEWITH', value);
   console.log(`END Event ${value}`);
 }
-
 function changeEvent(value) {
   sliderValue.value = value;
   store.commit('SETBARCODEWITH', value);

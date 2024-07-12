@@ -12,7 +12,8 @@
     <template v-else>
       <vue3-barcode
         :value="barcodeValue"
-        :height="barcodeWidth"
+        :width="2"
+        :height="50"
         :display-value="false"
       />
     </template>

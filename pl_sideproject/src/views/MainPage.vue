@@ -1,6 +1,6 @@
 <template>
   <v-main>
-    <v-container class="d-flex justify-center align-center">
+    <v-container class="d-flex justify-center align-center container">
       <v-btn
         class="ma-1 d-flex align-center justify-center"
         :color="isQRcode ? 'blue' : 'grey'"
@@ -20,7 +20,7 @@
     </v-container>
     <v-container>
       <barcode-input-form></barcode-input-form>
-      <v-row id="qrcodeRef" v-show="saveBarcodeValue">
+      <v-row ref="qrcodeRef" id="qrcodeRef" v-show="saveBarcodeValue">
         <v-col>
           <barcode-form></barcode-form>
         </v-col>
