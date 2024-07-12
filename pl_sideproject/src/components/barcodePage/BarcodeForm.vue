@@ -1,5 +1,5 @@
 <template>
-  <v-container style="text-align: center">
+  <v-container style="text-align: center" id="barcodeContainer">
     <!-- <div>BarcodeForm 컴포넌트</div> -->
     <template v-if="isQRcode">
       <vue-qrcode

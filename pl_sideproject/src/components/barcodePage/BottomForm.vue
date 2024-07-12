@@ -3,8 +3,14 @@
     <v-btn @click="createQRcode">
       <span>바코드 생성</span>
     </v-btn>
-    <v-btn @click="copyAndPasteQRCode" v-if="getSaveBarcodeValue">
+    <v-btn @click="copyAndPasteQRCode('bacode')" v-if="getSaveBarcodeValue">
       <span>바코드 복사</span>
+    </v-btn>
+    <v-btn
+      @click="copyAndPasteQRCode('barcodeWithcontext')"
+      v-if="getSaveBarcodeValue"
+    >
+      <span>바코드&내용 복사</span>
     </v-btn>
     <v-btn @click="resizeBarcode" v-if="getSaveBarcodeValue && isQRcode">
       <span>바코드 조절</span>
@@ -78,13 +84,17 @@ let { copyQRCode, pasteQRCode } = createBottomQRcode();
 let optionBottomViewType = ref('');
 
 // QR copy && bottomShow
-async function copyAndPasteQRCode() {
+async function copyAndPasteQRCode(type) {
   optionBottomViewType.value = 'copy';
   store.commit('setDim', true);
-  const copyId = 'qrcodeRef';
+  let copyId = 'qrcodeRef';
+  if (type === 'bacode') {
+    copyId = 'barcodeContainer';
+  } else {
+    copyId = 'qrcodeRef';
+  }
   await copyQRCode(copyId);
-  const bottomSheetHeight =
-    document.getElementById('qrcodeRef').offsetHeight + 100;
+  const bottomSheetHeight = document.getElementById(copyId).offsetHeight + 100;
   console.log(bottomSheetHeight);
   store.dispatch('OPENSNACKBAR', {
     snackbar: true,
