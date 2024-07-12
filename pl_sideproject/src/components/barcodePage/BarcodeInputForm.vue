@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-form ref="form" @submit.prevent="addHistory">
+    <v-form ref="form" @submit.prevent>
       <v-row>
         <v-col>
           <v-row>
@@ -19,37 +19,9 @@
                 @keyup.enter="submitForm"
                 @click:clear="clearBarcode"
               ></v-text-field>
-              <v-sheet class="mx-auto" v-if="searchHistory.length">
-                <v-slide-group show-arrows class="">
-                  <v-slide-group-item
-                    v-for="searchBarcode in searchHistory"
-                    :key="searchBarcode"
-                  >
-                    <v-btn
-                      class="ma-1"
-                      size="small"
-                      @click="researchBarcode(searchBarcode)"
-                    >
-                      <span>{{ searchBarcode }}</span>
-                      <v-icon
-                        class="ml-2 hover-grey"
-                        @click.stop="deleteHistory(searchBarcode)"
-                        >mdi-close</v-icon
-                      >
-                    </v-btn>
-                  </v-slide-group-item>
-                </v-slide-group>
-                <div class="text-right">
-                  <v-btn
-                    size="small"
-                    variant="plain"
-                    class="underline"
-                    @click.stop="clearHistory"
-                  >
-                    전체 삭제
-                  </v-btn>
-                </div>
-              </v-sheet>
+              <v-search-barcode-history
+                @research-item="reseachBarcodeValue"
+              ></v-search-barcode-history>
             </v-col>
           </v-row>
         </v-col>
@@ -59,14 +31,15 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 import { useStore } from 'vuex';
+import VSearchBarcodeHistory from '@/components/common/VSearchBarcodeHistory.vue';
+import { composableRecentSearchHistory } from '@/hooks/composableRecentSearchHistory.js';
+let { addHistory } = composableRecentSearchHistory();
 
 const barcodeValue = ref('');
-const searchHistory = computed(() => {
-  return store.getters.getHistoryBarcodeArr;
-});
 const store = useStore();
+const searchHistoryArr = store.getters.getSearchHistoryArr;
 
 const rules = {
   required: value => !!value || '필수 입력 항목입니다.',
@@ -74,6 +47,7 @@ const rules = {
 
 function submitForm() {
   store.commit('SAVEBARCODE', barcodeValue.value);
+  addHistory(barcodeValue.value);
 }
 
 function savaStore() {
@@ -84,45 +58,11 @@ function clearBarcode() {
   store.dispatch('UPDATEBARCODE', '');
 }
 
-function addHistory() {
-  const searchHistory = store.getters.getHistoryBarcodeArr;
-
-  if (barcodeValue.value && !searchHistory.includes(barcodeValue.value)) {
-    store.dispatch('ADDHISTORY', barcodeValue.value);
-  }
-}
-
-function deleteHistory(searchBarcode) {
-  const searchHistory = store.getters.getHistoryBarcodeArr;
-
-  const index = this.searchHistory.indexOf(searchBarcode);
-  if (index !== -1) {
-    this.searchHistory.splice(index, 1);
-  }
-}
-
-function clearHistory() {
-  store.commit('CLEARHISTORY');
-}
-
-function researchBarcode(searchBarcode) {
-  barcodeValue.value = searchBarcode;
-  store.dispatch('UPDATEBARCODE', searchBarcode);
-  this.submitForm();
+function reseachBarcodeValue(value) {
+  barcodeValue.value = value;
+  savaStore();
+  submitForm();
 }
 </script>
 
-<style scoped>
-.hover-grey {
-  transition: background-color 0.3s ease;
-}
-.hover-grey:hover {
-  background-color: rgb(146, 146, 146);
-}
-.text-right {
-  text-align: right;
-}
-.underline {
-  text-decoration: underline;
-}
-</style>
+<style scoped></style>

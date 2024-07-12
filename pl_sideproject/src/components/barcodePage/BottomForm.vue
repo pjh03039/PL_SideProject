@@ -26,14 +26,17 @@ let getSaveBarcodeValue = computed(() => {
   return store.getters.getSaveBarcodeValue;
 });
 
+// 바코드 생성
+import { composableRecentSearchHistory } from '@/hooks/composableRecentSearchHistory.js';
+let { addHistory } = composableRecentSearchHistory();
 function createQRcode() {
   const barcodeValue = store.getters.getBarcodeValue;
-  const searchHistory = store.getters.getHistoryBarcodeArr;
+  const searchHistoryArr = store.getters.getSearchHistoryArr;
 
   store.commit('SAVEBARCODE', barcodeValue);
 
-  if (barcodeValue && !searchHistory.includes(barcodeValue)) {
-    store.dispatch('ADDHISTORY', barcodeValue);
+  if (barcodeValue && !searchHistoryArr.includes(barcodeValue)) {
+    addHistory(barcodeValue);
   }
 }
 

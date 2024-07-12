@@ -22,7 +22,7 @@ export default createStore({
       height: 500,
       timer: 5,
     },
-    historyBarcodeArr: [],
+    searchHistoryArr: [],
     QRcode: true,
   },
   getters: {
@@ -31,7 +31,7 @@ export default createStore({
     getSaveBarcodeValue: state => state.saveBarcodeValue,
     getBottomSheetObj: state => state.bottomSheetObj,
     getProductInfo: state => state.productInfo,
-    getHistoryBarcodeArr: state => state.historyBarcodeArr,
+    getSearchHistoryArr: state => state.searchHistoryArr,
     isQRcode: state => state.QRcode,
   },
   mutations: {
@@ -42,7 +42,7 @@ export default createStore({
       state.toastObj = snackbarObj;
     },
     SETBARCODE(state, newBarcode) {
-      state.barcodeValue = newBarcode;
+      state.barcodeValue = newBarcode.replace(/\s+/g, '');
     },
     SAVEBARCODE(state, savedBarcod) {
       state.saveBarcodeValue = savedBarcod;
@@ -57,13 +57,13 @@ export default createStore({
       state.bottomSheetObj = bottomSheetObj;
     },
     SETHISTORY(state, searchBarcode) {
-      state.historyBarcodeArr.unshift(searchBarcode);
-      if (state.historyBarcodeArr.length > 10) {
-        state.historyBarcodeArr.pop();
+      state.searchHistoryArr.unshift(searchBarcode); // 배열의 앞에 추가 ex)push
+      if (state.searchHistoryArr.length > 10) {
+        state.searchHistoryArr.pop();
       }
     },
     CLEARHISTORY(state) {
-      state.historyBarcodeArr.splice(0, state.historyBarcodeArr.length);
+      state.searchHistoryArr.splice(0, state.searchHistoryArr.length);
     },
   },
   actions: {
