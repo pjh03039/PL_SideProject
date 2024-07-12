@@ -4,13 +4,17 @@
     <template v-if="isQRcode">
       <vue-qrcode
         :value="barcodeValue"
-        :width="150"
+        :width="barcodeWidth"
         type="image/png"
         :color="colorObject"
       />
     </template>
     <template v-else>
-      <vue3-barcode :value="barcodeValue" :height="50" />
+      <vue3-barcode
+        :value="barcodeValue"
+        :height="barcodeWidth"
+        :display-value="false"
+      />
     </template>
   </v-container>
 </template>
@@ -32,6 +36,10 @@ const colorObject = ref({
 });
 const barcodeValue = computed(() => {
   return store.getters.getSaveBarcodeValue;
+});
+
+const barcodeWidth = computed(() => {
+  return store.getters.getbarcodeWidth;
 });
 
 const qrcodeRef = ref(null); // ref 객체 생성

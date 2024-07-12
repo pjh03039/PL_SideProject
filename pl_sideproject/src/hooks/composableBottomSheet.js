@@ -13,7 +13,9 @@ export function createBottomSheet() {
   // bottomTimer
   function createBottomTimer(bottomSetTime, callback) {
     // console.log(`createBottomQRcode ${createBottomQRcode}`);
-    startInterval(1000, bottomSetTime, callback);
+    if (bottomSetTime !== 0) {
+      startInterval(1000, bottomSetTime, callback);
+    }
   }
 
   // 인터벌 ID를 저장할 변수

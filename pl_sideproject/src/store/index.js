@@ -9,6 +9,7 @@ export default createStore({
     },
     productObj: {},
     barcodeValue: '',
+    barcodeWidth: 150,
     saveBarcodeValue: '',
     overlayFlg: false,
     bottomSheetObj: {
@@ -27,6 +28,7 @@ export default createStore({
     getProductObj: state => state.productObj,
     getSearchHistoryArr: state => state.searchHistoryArr,
     isQRcode: state => state.QRcode,
+    getbarcodeWidth: state => state.barcodeWidth,
   },
   mutations: {
     SETQRCODETYPE(state, QRcode) {
@@ -59,6 +61,9 @@ export default createStore({
     },
     CLEARHISTORY(state) {
       state.searchHistoryArr.splice(0, state.searchHistoryArr.length);
+    },
+    SETBARCODEWITH(state, barcodeWidth) {
+      state.barcodeWidth = barcodeWidth;
     },
   },
   actions: {

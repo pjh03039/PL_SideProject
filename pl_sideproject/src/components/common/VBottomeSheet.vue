@@ -6,24 +6,27 @@
       persistent
     >
       <v-card :height="bottomSheetObj.height">
-        <div class="px-3 py-3 text-end" @click="clearInterval">
-          <!-- <v-btn
-            :icon="`mdi-numeric-${bottomSheetCnt}`"
-            height="40"
-            variant="text"
-            width="40"
-            border
-          ></v-btn> 버튼 형식 -->
-          <v-progress-circular
-            :model-value="bottomSheetPer"
-            :rotate="200"
-            :size="20"
-            :width="4"
-            color="teal"
-          >
-            <span style="font-size: 7px">{{ bottomSheetCnt }}</span>
-          </v-progress-circular>
-        </div>
+        <template v-if="bottomSheetObj.timer != 0">
+          <div class="px-3 py-3 text-end" @click="clearInterval">
+            <!-- <v-btn
+              :icon="`mdi-numeric-${bottomSheetCnt}`"
+              height="40"
+              variant="text"
+              width="40"
+              border
+            ></v-btn> 버튼 형식 -->
+            <v-progress-circular
+              :model-value="bottomSheetPer"
+              :rotate="200"
+              :size="20"
+              :width="4"
+              color="teal"
+            >
+              <span style="font-size: 7px">{{ bottomSheetCnt }}</span>
+            </v-progress-circular>
+          </div>
+        </template>
+        <template v-else> </template>
         <slot name="cardContent"></slot>
       </v-card>
     </v-bottom-sheet>
