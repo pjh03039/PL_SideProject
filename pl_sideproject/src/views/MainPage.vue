@@ -20,7 +20,12 @@
     </v-container>
     <v-container>
       <barcode-input-form></barcode-input-form>
-      <v-row ref="qrcodeRef" id="qrcodeRef" v-show="saveBarcodeValue">
+      <v-row
+        class="d-flex justify-center align-center"
+        ref="qrcodeRef"
+        id="qrcodeRef"
+        v-if="saveBarcodeValue"
+      >
         <v-col>
           <barcode-form></barcode-form>
         </v-col>

@@ -34,8 +34,6 @@
           >
             <v-slider
               v-model="sliderValue"
-              @end="setSliderValue"
-              @change="changeEvent"
               :max="max"
               :min="min"
               class="slider"
@@ -48,7 +46,7 @@
 </template>
 
 <script setup>
-import { computed, nextTick, ref } from 'vue';
+import { computed, nextTick, ref, watch } from 'vue';
 import VBottomeSheet from '@/components/common/VBottomeSheet.vue';
 import { useStore } from 'vuex';
 
@@ -127,16 +125,17 @@ function resizeBarcode() {
     timer: 0,
   });
 }
-function setSliderValue(value) {
-  sliderValue.value = value;
-  store.commit('SETBARCODEWITH', value);
-  console.log(`END Event ${value}`);
-}
-function changeEvent(value) {
-  sliderValue.value = value;
-  store.commit('SETBARCODEWITH', value);
-  console.log(`Change Event ${value}`);
-}
+// function setSliderValue(value) {
+//   sliderValue.value = value;
+//   store.commit('SETBARCODEWITH', value);
+//   console.log(`END Event ${value}`);
+// }
+// v-slider @input 대체
+watch(sliderValue, val => {
+  sliderValue.value = val;
+  store.commit('SETBARCODEWITH', val);
+  console.log(`watch sliderValue Event ${val}`);
+});
 </script>
 
 <style>
