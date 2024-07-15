@@ -1,24 +1,24 @@
 <template>
   <v-container>
-    <v-row>
-      <v-col v-if="cowayProductCheck(getSaveBarcodeValue)">
-        <v-list class="text-center"><strong>코웨이 제품입니다.</strong></v-list>
-        <v-list>바코드 : {{ getProductObj.productBarcode }}</v-list>
-        <v-list
-          >자재코드 : {{ getProductObj.productInfo.makrModelCode }}</v-list
-        >
-        <v-list>프로젝트명 : {{ getProductObj.productInfo.prodName }}</v-list>
-        <v-list>모델명 : {{ getProductObj.productInfo.productModel }}</v-list>
-        <v-list>제품 이름 : {{ getProductObj.productInfo.productName }}</v-list>
-        <v-list v-if="getProductObj.productInfo.wifiType !== 'X'"
-          >wifiType :
-          {{
-            getProductObj.productInfo.wifiType === 'M' ? 'MQTT' : 'TCP'
-          }}</v-list
-        >
-      </v-col>
-      <v-col v-else>바코드 : {{ getSaveBarcodeValue }}</v-col>
-    </v-row>
+    <div class="text-center text-h5">
+      <strong><span class="text-blue-darken-1">Coway</span> 제품입니다.</strong>
+    </div>
+    <v-list>
+      <v-list-item>바코드 : {{ getProductObj.productBarcode }}</v-list-item>
+      <v-list-item
+        >자재코드 : {{ getProductObj.productInfo.makrModelCode }}</v-list-item
+      >
+      <v-list-item
+        >프로젝트명 : {{ getProductObj.productInfo.prodName }}</v-list-item
+      >
+      <v-list-item
+        >모델명 : {{ getProductObj.productInfo.productModel }}</v-list-item
+      >
+      <v-list-item
+        >제품 이름 : {{ getProductObj.productInfo.productName }}</v-list-item
+      >
+      <v-list-item>바코드 : {{ getProductObj.productBarcode }}</v-list-item>
+    </v-list>
   </v-container>
 </template>
 
