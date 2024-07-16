@@ -17,7 +17,7 @@
 <script setup>
 import { computed } from 'vue';
 import { useStore } from 'vuex';
-
+const mhlee = '';
 const store = useStore();
 const overlay = computed(() => {
   return store.state.overlayFlg;
