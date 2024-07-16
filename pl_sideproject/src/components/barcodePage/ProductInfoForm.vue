@@ -17,7 +17,6 @@
       <v-list-item
         >제품 이름 : {{ getProductObj.productInfo.productName }}</v-list-item
       >
-      <v-list-item>바코드 : {{ getProductObj.productBarcode }}</v-list-item>
     </v-list>
   </v-container>
 </template>
