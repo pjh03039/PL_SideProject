@@ -59,6 +59,12 @@ export default createStore({
         state.searchHistoryArr.pop();
       }
     },
+    DELETEHISTORY(state, deleteItem) {
+      const index = state.searchHistoryArr.indexOf(deleteItem);
+      if (index !== -1) {
+        state.searchHistoryArr.splice(index, 1);
+      }
+    },
     CLEARHISTORY(state) {
       state.searchHistoryArr.splice(0, state.searchHistoryArr.length);
     },

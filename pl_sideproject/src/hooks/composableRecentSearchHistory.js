@@ -17,10 +17,7 @@ export function composableRecentSearchHistory() {
 
   // 선택 아이템 1개 삭제
   function deleteHistory(deleteItem) {
-    const index = this.searchHistoryArr.indexOf(deleteItem);
-    if (index !== -1) {
-      this.searchHistoryArr.splice(index, 1);
-    }
+    store.commit('DELETEHISTORY', deleteItem);
   }
 
   // 전체 삭제
