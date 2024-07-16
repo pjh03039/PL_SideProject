@@ -6,7 +6,11 @@
           v-for="searchBarcode in searchHistoryArr"
           :key="searchBarcode"
         >
-          <v-btn class="ma-1" size="small" @click="researchItem(searchBarcode)">
+          <v-btn
+            class="ma-1 text-none"
+            size="small"
+            @click="researchItem(searchBarcode)"
+          >
             <span>{{ searchBarcode }}</span>
             <v-icon
               class="ml-2 hover-grey"
