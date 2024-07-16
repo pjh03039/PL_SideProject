@@ -1,11 +1,14 @@
 {
+  "homepage": "https://github.com/pjh03039/pjh03039.github.io/",
   "name": "pl_sideproject",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@mdi/font": "5.9.55",
@@ -32,6 +35,7 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-vue": "^8.0.3",
+    "gh-pages": "^6.1.1",
     "prettier": "^2.4.1",
     "vue-cli-plugin-vuetify": "~2.5.8",
     "webpack-plugin-vuetify": "^2.0.0-alpha.0"
